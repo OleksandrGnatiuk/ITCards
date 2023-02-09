@@ -1,14 +1,17 @@
+from PIL import Image
+
 
 class Card:
 
-    def __init__(self, name, side_front, side_back: str):
+    def __init__(self, name, path_to_pic, side_back: str):
         self.name = name
-        self.side_front = side_front
+        self.path_to_pic = path_to_pic
         self.side_back = side_back
         self.score = 0
 
     def show_front(self):
-        return self.side_front
+        img = Image.open(self.path_to_pic)
+        img.show()
 
     def show_back(self):
         return self.side_back
@@ -55,8 +58,8 @@ class PyCards:
 pycards = PyCards()
 
 
-card_1 = Card("print", "\nметод print('Hello. World')", "Функція для виводу результату на екран. Містить параметри за замовчуванням 'sep=' та 'end='")
-card_2 = Card("input", "\nметод input()", "Функція для вводу даних з клавіатури")
+card_1 = Card("print", r"library/pil.jpg", "Вращаем и сохраняем изображение. \nДля вращения можно использовать функцию rotate, принимающую кол-во градусов.")
+card_2 = Card("input", r"library/merge_dict.jpg", "Начиная с Python 3.9, мы наконец-то получили самый элегантный способ объединения словарей - использование операторов объединения.Как показано в примере выше, мы можем просто использовать оператор | для слияния двух разных словарей. Более того, он также поддерживает объединение in-place.")
 
 basic = Topic("basic")
 basic.add_card(card_1)
