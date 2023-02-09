@@ -1,2 +1,4 @@
 # PyCards
-app for learning python with cards
+
+Додаток для вивчення python за допомогою карток
+
