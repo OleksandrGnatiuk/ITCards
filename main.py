@@ -14,7 +14,8 @@ def main():
                 active_card = sample(py_cards.book["basic"].lst_of_cards, 1)
                 break
         print(active_card[0].show_front())
-        active_card[0].last_show = datetime.now()  # після показу змінюємо для картки дату та час останнього показу
+        active_card[0].last_show = datetime.now()    # після показу змінюємо для картки дату та час останнього показу
+        active_card[0].cnt_shows += 1                # після показу змінюємо для картки кількість показів
         answer = input("\nПодивитися пояснення. y / n: \n")
         if answer.lower().strip() == "y":
             print(active_card[0].show_back())

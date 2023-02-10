@@ -1,5 +1,4 @@
 from PIL import Image
-from datetime import datetime
 
 
 class Card:
@@ -27,7 +26,7 @@ class Topic:
         self.name = name
         if lst_of_cards is None:
             self.lst_of_cards = []
-        self.status = 'not_added'
+        self.status = None
 
     def add_card(self, card: Card):
         self.lst_of_cards.append(card)
@@ -54,13 +53,21 @@ class ITCards:
 
 
 py_cards = ITCards()
+card_1_back = """Вращаем и сохраняем изображение.
+Для вращения можно использовать функцию rotate, принимающую кол-во градусов.
+"""
+card_1 = Card("print", r"library/pil.jpg", card_1_back)
 
-card_1 = Card("print", r"library/pil.jpg", "Вращаем и сохраняем изображение. \nДля вращения можно использовать функцию rotate, принимающую кол-во градусов.")
-card_2 = Card("input", r"library/merge_dict.jpg", "Начиная с Python 3.9, мы наконец-то получили самый элегантный способ объединения словарей - использование операторов объединения.Как показано в примере выше, мы можем просто использовать оператор | для слияния двух разных словарей. Более того, он также поддерживает объединение in-place.")
+card_2_back = """Начиная с Python 3.9, мы наконец-то получили самый элегантный способ 
+объединения словарей - использование операторов объединения.
+Как показано в примере выше, мы можем просто использовать оператор | для слияния двух разных словарей. 
+Более того, он также поддерживает объединение in-place.
+"""
+card_2 = Card("input", r"library/merge_dict.jpg", card_2_back)
 
 basic = Topic("basic")
 basic.add_card(card_1)
 basic.add_card(card_2)
 
 py_cards.add_topic(basic)
-# print(pycards)
+# print(py_cards)
