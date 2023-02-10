@@ -1,4 +1,4 @@
-from cards import py_cards, Topic, Card
+from cards import py_cards, Card
 from datetime import datetime, timedelta
 
 
@@ -17,7 +17,7 @@ def create_active_list(dct) -> list[Card]:
             continue
     return active_list
 
-
+# Формуємо часові інтервали показу карток, в залежності від кількості їх попередніх показів
 intervals = {
     1: timedelta(minutes=25),
     2: timedelta(hours=8),
@@ -31,14 +31,14 @@ intervals = {
 
 def status_of_card(card: Card):
     if card.cnt_shows == 0:
-        card.cnt_shows = "active"
+        card.status = "active"
     else:
-        interval = card.last_show - datetime.now()
+        interval = datetime.now() - card.last_show
         for key, value in intervals.items():
             if card.cnt_shows == key and interval >= value:
-                card.cnt_shows = "active"
+                card.status = "active"
             else:
-                card.last_show = "non active"
+                card.status = "non active"
 
 
 if __name__ == "__main__":

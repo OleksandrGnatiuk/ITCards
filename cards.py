@@ -21,6 +21,9 @@ class Card:
     def show_back(self):
         return self.side_back
 
+    def __str__(self):
+        return f"{self.name}: \n{self.show_back()} \nКількість показів: {self.cnt_shows}\nОстанній показ: {self.last_show}\n{self.status}"
+
 
 class Topic:
 
