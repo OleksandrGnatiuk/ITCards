@@ -1,4 +1,5 @@
 from PIL import Image
+from datetime import datetime
 
 
 class Card:
@@ -7,17 +8,17 @@ class Card:
         self.name = name
         self.path_to_pic = path_to_pic
         self.side_back = side_back
-        self.score = 0
+        self.cnt_shows = 0
+        self.last_show = None
+        self.status = 'active'
 
     def show_front(self):
         img = Image.open(self.path_to_pic)
         img.show()
+        return
 
     def show_back(self):
         return self.side_back
-
-    def i_know(self):
-        self.score += 1
 
 
 class Topic:
@@ -26,11 +27,10 @@ class Topic:
         self.name = name
         if lst_of_cards is None:
             self.lst_of_cards = []
-        self.status = 'in_future'
+        self.status = 'not_added'
 
     def add_card(self, card: Card):
         self.lst_of_cards.append(card)
-
 
     def __str__(self):
         lst = [card.name for card in self.lst_of_cards]
@@ -38,8 +38,7 @@ class Topic:
         return result
 
 
-
-class PyCards:
+class ITCards:
 
     def __init__(self):
         self.book = {}
@@ -54,9 +53,7 @@ class PyCards:
         return result
 
 
-
-pycards = PyCards()
-
+py_cards = ITCards()
 
 card_1 = Card("print", r"library/pil.jpg", "Вращаем и сохраняем изображение. \nДля вращения можно использовать функцию rotate, принимающую кол-во градусов.")
 card_2 = Card("input", r"library/merge_dict.jpg", "Начиная с Python 3.9, мы наконец-то получили самый элегантный способ объединения словарей - использование операторов объединения.Как показано в примере выше, мы можем просто использовать оператор | для слияния двух разных словарей. Более того, он также поддерживает объединение in-place.")
@@ -65,5 +62,5 @@ basic = Topic("basic")
 basic.add_card(card_1)
 basic.add_card(card_2)
 
-pycards.add_topic(basic)
+py_cards.add_topic(basic)
 # print(pycards)

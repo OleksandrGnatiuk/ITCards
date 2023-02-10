@@ -1,24 +1,29 @@
 from random import sample
-from cards import pycards
+from datetime import datetime
+from cards import py_cards, Card
 
 
 def main():
     while True:
-        for name in pycards.book:
-            if pycards.book[name].status == 'active':
-                active_card = sample(pycards.book[name].lst_of_cards, 1)
+        active_card: list[Card] = []
+        for name in py_cards.book:
+            if py_cards.book[name].status == 'active':
+                active_card = sample(py_cards.book[name].lst_of_cards, 1)
                 break
             else:
-                active_card = sample(pycards.book["basic"].lst_of_cards, 1)
+                active_card = sample(py_cards.book["basic"].lst_of_cards, 1)
                 break
         print(active_card[0].show_front())
-        a = input("\nПодивитися пояснення. y / n: \n")
-        if a.lower().strip() == "y":
+        active_card[0].last_show = datetime.now()  # після показу змінюємо для картки дату та час останнього показу
+        answer = input("\nПодивитися пояснення. y / n: \n")
+        if answer.lower().strip() == "y":
             print(active_card[0].show_back())
+        else:
+            continue
+        answer2 = input("\nПодивитися наступну картку. y / n: \n")
+        if answer2.lower().strip() == "y":
+            continue
 
-        b = input("Чи зрозумілий приклад? y / n: \n")
-        if b.lower().strip() == "y":
-            active_card[0].score += 1
 
 if __name__ == "__main__":
     main()
