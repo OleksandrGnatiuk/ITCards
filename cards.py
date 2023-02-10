@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PIL import Image
 
 
@@ -8,7 +10,7 @@ class Card:
         self.path_to_pic = path_to_pic
         self.side_back = side_back
         self.cnt_shows = 0
-        self.last_show = None
+        self.last_show = datetime.now()
         self.status = 'active'
 
     def show_front(self):
@@ -26,7 +28,7 @@ class Topic:
         self.name = name
         if lst_of_cards is None:
             self.lst_of_cards = []
-        self.status = None
+        self.status = "new"
 
     def add_card(self, card: Card):
         self.lst_of_cards.append(card)
