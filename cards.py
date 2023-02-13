@@ -1,5 +1,5 @@
 from datetime import datetime
-
+import pickle
 from PIL import Image
 
 
@@ -39,40 +39,35 @@ class Topic:
     def __str__(self):
         lst = [card.name for card in self.lst_of_cards]
         result = ", ".join(lst)
-        return result
+        return f"{result}\nStatus: {self.status}"
 
 
 class ITCards:
 
     def __init__(self):
         self.book = {}
+        self.read_from_file()
 
     def add_topic(self, topic: Topic):
         self.book[topic.name] = topic
+        self.save_to_file()
 
     def __str__(self):
         result = '\n'
         for name, topic in self.book.items():
-            result += f'{name}: {topic}\n'
+            result += f'\n{name}: {topic}\n'
         return result
+
+    def save_to_file(self):
+        with open('cards.pickle', 'wb') as fd:
+            pickle.dump(self.book, fd)
+
+    def read_from_file(self):
+        try:
+            with open('cards.pickle', 'rb') as fd:
+                self.book = pickle.load(fd)
+        except FileNotFoundError:
+            self.book = {}
 
 
 py_cards = ITCards()
-card_1_back = """Вращаем и сохраняем изображение.
-Для вращения можно использовать функцию rotate, принимающую кол-во градусов.
-"""
-card_1 = Card("print", r"library/pil.jpg", card_1_back)
-
-card_2_back = """Начиная с Python 3.9, мы наконец-то получили самый элегантный способ 
-объединения словарей - использование операторов объединения.
-Как показано в примере выше, мы можем просто использовать оператор | для слияния двух разных словарей. 
-Более того, он также поддерживает объединение in-place.
-"""
-card_2 = Card("input", r"library/merge_dict.jpg", card_2_back)
-
-basic = Topic("basic")
-basic.add_card(card_1)
-basic.add_card(card_2)
-
-py_cards.add_topic(basic)
-# print(py_cards)

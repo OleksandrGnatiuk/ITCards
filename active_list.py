@@ -10,7 +10,7 @@ def create_active_list(dct) -> list[Card]:
             topic.status = "added"
         elif topic.status == "added":
             for card in topic.lst_of_cards:
-                status_of_card(card)
+                check_status_of_card(card)
                 if card.status == "active":
                     active_list.append(card)
         else:
@@ -29,14 +29,17 @@ intervals = {
 }
 
 
-def status_of_card(card: Card):
+def check_status_of_card(card: Card):
+    time = datetime.now() - card.last_show
     if card.cnt_shows == 0:
         card.status = "active"
+    elif card.cnt_shows > 7 and time >= timedelta(days=90):
+        card.status = "active"
     else:
-        interval = datetime.now() - card.last_show
-        for key, value in intervals.items():
-            if card.cnt_shows == key and interval >= value:
+        for cnt, interval in intervals.items():
+            if card.cnt_shows == cnt and time >= interval:
                 card.status = "active"
+                break
             else:
                 card.status = "non active"
 
