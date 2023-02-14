@@ -8,14 +8,14 @@ def main():
     while True:
         active_list = create_active_list(py_cards.book)
         if len(active_list) > 0:
-            active_card: list[Card] = sample(active_list, 1)
-            print(active_card[0].show_front())
-            active_card[0].last_show = datetime.now()  # після показу змінюємо для картки дату та час останнього показу
-            active_card[0].cnt_shows += 1
-            active_card[0].status = "non active"
+            active_card, *rest = sample(active_list, 1)
+            print(active_card.show_front())
+            active_card.last_show = datetime.now()  # після показу змінюємо для картки дату та час останнього показу
+            active_card.cnt_shows += 1
+            active_card.status = "non active"
             answer = input("\nПодивитися пояснення. y / n: \n")
             if answer.lower().strip() == "y":
-                print(active_card[0].show_back())
+                print(active_card.show_back())
             else:
                 continue
         else:
